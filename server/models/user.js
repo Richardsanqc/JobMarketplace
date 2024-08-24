@@ -6,19 +6,19 @@ const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      required: [true, "Please provide an email"],
+      required: true,
       unique: true,
-      match: [
-        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-        "Please provide a valid email",
-      ],
     },
     password: {
       type: String,
-      required: [true, "Please provide a password"],
+      required: true,
       minlength: 8,
     },
-    role: { type: String, enum: ["job seeker", "employer"], required: true },
+    role: { type: String, enum: ["jobSeeker", "employer"], required: true },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   { timestamps: true }
 );

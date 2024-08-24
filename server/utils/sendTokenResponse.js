@@ -1,5 +1,3 @@
-const jwt = require("jsonwebtoken");
-
 const sendTokenResponse = (user, statusCode, res) => {
   const token = user.getSignedJwtToken();
 
@@ -8,6 +6,8 @@ const sendTokenResponse = (user, statusCode, res) => {
       Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
+    secure: process.env.NODE_ENV === "production", // Secure in production
+    sameSite: "strict", // Restrict cross-site access
   };
 
   res.status(statusCode).cookie("token", token, options).json({
