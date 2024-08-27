@@ -9,6 +9,8 @@ import Home from "./pages/home/Home";
 import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
 import Dashboard from "./pages/home/Dashboard";
+import RequestResetPassword from "./pages/auth/RequestResetPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
 import { useAuth } from "./context/AuthContext";
 
 const App = () => {
@@ -29,6 +31,11 @@ const App = () => {
           path="/dashboard"
           element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
         />
+        <Route
+          path="/request-reset-password"
+          element={<RequestResetPassword />}
+        />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </Router>

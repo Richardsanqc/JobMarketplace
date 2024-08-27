@@ -7,6 +7,9 @@
   --error-bg-color: #f8d7da;
   --error-border-color: #f5c6cb;
   --error-text-color: #721c24;
+  --success-bg-color: #d4edda;
+  --success-border-color: #c3e6cb;
+  --success-text-color: #155724;
 }
 
 /* Role Container Styling */
@@ -113,6 +116,22 @@ select:focus {
 }
 
 .error-messages p {
+  margin: 0;
+}
+
+/* Success Messages Styling */
+.success-messages {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: var(--success-bg-color);
+  border: 1px solid var(--success-border-color);
+  border-radius: 4px;
+  color: var(--success-text-color);
+  font-weight: bold;
+  text-align: center;
+}
+
+.success-messages p {
   margin: 0;
 }
 

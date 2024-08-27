@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Navbar from "../../components/header/Navbar";
 import "../../global.css";
@@ -90,16 +90,16 @@ const Login = () => {
             )}
           </form>
 
-          <a href="#" className="forgot-password">
+          <Link to="/request-reset-password" className="forgot-password">
             Forgot Password?
-          </a>
+          </Link>
 
           <div className="switch-auth">
             <p>
               Don't have an account?{" "}
-              <a href="/signup" className="signup-link">
+              <Link to="/signup" className="signup-link">
                 Sign Up
-              </a>
+              </Link>
             </p>
           </div>
         </div>
