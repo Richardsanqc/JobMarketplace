@@ -62,7 +62,7 @@ const ResetPassword = () => {
       <Navbar />
       <div className="page-container">
         <div className="form-container">
-          <h1 className="lrg-heading">Enter Your New Password</h1>
+          <h1 className="lrg-heading">New Password</h1>
           {error ? (
             <div className="error-messages">
               <p>{error}</p>
