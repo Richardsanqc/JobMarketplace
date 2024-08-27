@@ -131,9 +131,27 @@ exports.requestPasswordReset = [
         .json({ errors: [{ msg: "Email not found in the database" }] });
     }
 
+    // Check if the last password reset request was within the last 5 minutes
+    const now = Date.now();
+    if (
+      user.lastPasswordResetRequest &&
+      now - user.lastPasswordResetRequest < 5 * 60 * 1000
+    ) {
+      return res
+        .status(429)
+        .json({
+          errors: [
+            { msg: "Please wait before requesting another password reset." },
+          ],
+        });
+    }
+
+    // Update last password reset request timestamp
+    user.lastPasswordResetRequest = now;
+
     // Generate reset token and set expiration
     user.resetPasswordToken = crypto.randomBytes(20).toString("hex");
-    user.resetPasswordExpires = Date.now() + 15 * 60 * 1000; // 15 minutes
+    user.resetPasswordExpires = now + 15 * 60 * 1000; // 15 minutes
 
     await user.save();
 
