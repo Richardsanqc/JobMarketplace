@@ -1,6 +1,8 @@
 const User = require("../models/user");
 const { validationResult, check } = require("express-validator");
 const sendTokenResponse = require("../utils/sendTokenResponse");
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
 
 // Validation rules
 const registerValidationRules = [
@@ -95,4 +97,91 @@ exports.getUserProfile = async (req, res) => {
     console.error(err.message);
     res.status(500).json({ errors: [{ msg: "Server error" }] });
   }
+};
+
+// Reset Password
+exports.requestPasswordReset = async (req, res) => {
+  const { email } = req.body;
+
+  // Find the user by email
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+
+  // Generate reset code
+  const resetCode = crypto.randomBytes(20).toString("hex");
+
+  // Set reset code and expiration date
+  user.resetPasswordToken = resetCode;
+  user.resetPasswordExpires = Date.now() + 15 * 60 * 1000;
+
+  await user.save();
+
+  // Send email with reset code
+  const transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: "jobhive76@gmail.com",
+      pass: "GxLB2HHfL1AkevuT",
+    },
+  });
+
+  const mailOptions = {
+    to: user.email,
+    from: "jobhive76@gmail.com",
+    subject: "Password Reset",
+    text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
+    Please use the following code to reset your password:\n\n
+    ${resetCode}\n\n
+    This code will expire in 15 minutes.\n\n
+    If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+  };
+
+  await transporter.sendMail(mailOptions);
+
+  res.status(200).send("Reset code sent to email");
+};
+
+// Vertify the Reset Code
+exports.verifyResetCode = async (req, res) => {
+  const { email, code } = req.body;
+
+  // Find the user by email
+  const user = await User.findOne({
+    email,
+    resetPasswordToken: code,
+    resetPasswordExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return res.status(400).send("Invalid or expired reset code");
+  }
+
+  res.status(200).send("Code verified");
+};
+
+// Reset User's Password
+exports.resetPassword = async (req, res) => {
+  const { email, code, newPassword } = req.body;
+
+  // Find the user by email
+  const user = await User.findOne({
+    email,
+    resetPasswordToken: code,
+    resetPasswordExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return res.status(400).send("Invalid or expired reset code");
+  }
+
+  // Update the password
+  user.password = newPassword;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+
+  await user.save();
+
+  res.status(200).send("Password reset successful");
 };
