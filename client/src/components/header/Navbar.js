@@ -2,8 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./nav.css";
 import "../../global.css";
+import { useAuth } from "../../context/AuthContext";
 
 const Navbar = ({ isAuthenticated, handleLogout }) => {
+  const { user } = useAuth();
+
   return (
     <nav>
       <Link className="lrg-heading" to="/">
@@ -11,7 +14,7 @@ const Navbar = ({ isAuthenticated, handleLogout }) => {
       </Link>
       <div className="navbar-links">
         <Link to="/job-listings">Job Listings</Link>
-        <Link to="/browse-employees">Browse Employers</Link>
+        <Link to="/browse-employees">Browse Employees</Link>
         {isAuthenticated ? (
           <>
             <Link to="/dashboard">Dashboard</Link>
