@@ -137,13 +137,11 @@ exports.requestPasswordReset = [
       user.lastPasswordResetRequest &&
       now - user.lastPasswordResetRequest < 5 * 60 * 1000
     ) {
-      return res
-        .status(429)
-        .json({
-          errors: [
-            { msg: "Please wait before requesting another password reset." },
-          ],
-        });
+      return res.status(429).json({
+        errors: [
+          { msg: "Please wait before requesting another password reset." },
+        ],
+      });
     }
 
     // Update last password reset request timestamp

@@ -11,7 +11,7 @@ const Navbar = ({ isAuthenticated, handleLogout }) => {
       </Link>
       <div className="navbar-links">
         <Link to="/job-listings">Job Listings</Link>
-        <Link to="/browse-employees">Browse Employees</Link>
+        <Link to="/browse-employees">Browse Employers</Link>
         {isAuthenticated ? (
           <>
             <Link to="/dashboard">Dashboard</Link>
