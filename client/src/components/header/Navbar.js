@@ -14,9 +14,10 @@ const Navbar = ({ isAuthenticated, handleLogout }) => {
       </Link>
       <div className="navbar-links">
         <Link to="/job-listings">Job Listings</Link>
+        {/* George Haeberlin: stops non employer accounts from seeing links for employers */}
         {isAuthenticated && user.role === "employer" ? (
           <>
-            <Link to="/test">TEST FUCK YOU</Link>
+            <Link to="/createjob">Create Job Listing</Link>
           </>
         ) : (
           <>

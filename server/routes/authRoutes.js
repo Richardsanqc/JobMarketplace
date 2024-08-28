@@ -1,6 +1,7 @@
 const express = require("express");
 const {
   register,
+  createjob,
   login,
   logout,
   getUserProfile,
@@ -16,6 +17,7 @@ router.get("/dashboard", authenticate, getUserProfile);
 
 // Auth routes
 router.post("/register", register);
+router.post("/createjob", createjob);
 router.post("/login", login);
 router.post("/logout", logout);
 router.post("/request-password-reset", requestPasswordReset);

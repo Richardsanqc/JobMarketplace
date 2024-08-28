@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  //George Haeberlin: allows someone to use: const { user } = useAuth(); to get user data.
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export const AuthProvider = ({ children }) => {
     checkAuthStatus();
   }, []);
 
+  // George Haeberlin: This will fetch the user data of the user.
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -59,7 +61,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     fetchUserData();
-  }, []);
+  }, [setUser]);
 
   const login = (token) => {
     localStorage.setItem("token", token);
