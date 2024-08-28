@@ -53,7 +53,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Navbar isAuthenticated={true} handleLogout={handleLogout} />
+      <Navbar isAuthenticated={true} handleLogout={handleLogout} user={user} />
       <div className="content">
         <h2>Welcome to your dashboard!</h2>
         <p>

@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -29,6 +30,37 @@ export const AuthProvider = ({ children }) => {
     checkAuthStatus();
   }, []);
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token found");
+        }
+
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        // Ensure the endpoint is correct
+        const res = await axios.get(
+          "http://localhost:5050/api/auth/dashboard",
+          config
+        );
+        setUser(res.data);
+      } catch (err) {
+        console.error(
+          "Failed to fetch user data:",
+          err.response?.data?.errors || err.message
+        );
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   const login = (token) => {
     localStorage.setItem("token", token);
     setIsAuthenticated(true);
@@ -49,7 +81,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, user }}>
       {children}
     </AuthContext.Provider>
   );
