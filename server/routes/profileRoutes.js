@@ -1,12 +1,17 @@
 const express = require("express");
 const {
-  getEmployers,
-  getEmployerProfile,
-} = require("../controllers/employerController");
+  getUserProfile,
+  updateUserProfile,
+  getCompanyProfile,
+  updateCompanyProfile,
+} = require("../controllers/profileController");
+const authenticate = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.get("/", getEmployers);
-router.get("/:employerId", getEmployerProfile);
+router.get("/user/:userId", authenticate, getUserProfile);
+router.put("/user/:userId", authenticate, updateUserProfile);
+router.get("/company/:companyId", authenticate, getCompanyProfile);
+router.put("/company/:companyId", authenticate, updateCompanyProfile);
 
 module.exports = router;

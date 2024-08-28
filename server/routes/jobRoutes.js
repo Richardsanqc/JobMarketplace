@@ -5,13 +5,12 @@ const {
   createJob,
   applyToJob,
 } = require("../controllers/jobController");
-const authenticate = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
 router.get("/", getJobs);
 router.get("/:jobId", getJobDetails);
-router.post("/create", authenticate, createJob);
-router.post("/:jobId/apply", authenticate, applyToJob);
+router.post("/create", createJob);
+router.post("/:jobId/apply", applyToJob);
 
 module.exports = router;
