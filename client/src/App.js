@@ -9,6 +9,7 @@ import Home from "./pages/home/Home";
 import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
 import Dashboard from "./pages/home/Dashboard";
+import Test from "./pages/home/test";
 import RequestResetPassword from "./pages/auth/RequestResetPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 import { useAuth } from "./context/AuthContext";
