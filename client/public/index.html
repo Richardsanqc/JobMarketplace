@@ -8,15 +8,73 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Lato:wght@100..900&display=swap"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="css/companyprofile.css" />
   </head>
   <body>
-    <div id="root"></div>
+    <header>
+      <div class="navbar">
+        <div class="logo">Job Marketplace</div>
+        <nav>
+          <ul>
+            <li><a href="#">Job Search</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Career Advice</a></li>
+            <li><a href="#">Explore Companies</a></li>
+          </ul>
+        </nav>
+        <div class="user-options">
+          <span>Richard</span>
+          <a href="#">Employer Site</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Find the right company for you</h1>
+        <p>Everything you need to know about a company, all in one place</p>
+        <div class="search-bar">
+          <input type="text" id="searchInput" placeholder="Search by company name" />
+          <button id="searchButton">Search</button>
+        </div>
+        <span class="beta-badge">More companies added daily</span>
+      </div>
+      <div class="hero-image">
+        <img src="hero-image.jpg" alt="Professional Woman" />
+      </div>
+    </section>
+
+    <section class="companies">
+      <h2>Explore companies</h2>
+      <p>Learn about new jobs, reviews, company culture, perks, and benefits.</p>
+      <div id="companyList" class="company-list">
+        <div class="company-card">
+          <h3>Flight Centre Travel Group</h3>
+          <span>17 Jobs</span>
+        </div>
+        <div class="company-card">
+          <h3>Affco New Zealand</h3>
+          <span>22 Jobs</span>
+        </div>
+        <div class="company-card">
+          <h3>Ryman Healthcare</h3>
+          <span>78 Jobs</span>
+        </div>
+        <div class="company-card">
+          <h3>Harvey Norman</h3>
+          <span>54 Jobs</span>
+        </div>
+        <div class="company-card">
+          <h3>Ventia</h3>
+          <span>15 Jobs</span>
+        </div>
+      </div>
+      <button class="write-review">Write a Review</button>
+    </section>
+
+    <script src="js/companyprofile.js"></script>
   </body>
 </html>

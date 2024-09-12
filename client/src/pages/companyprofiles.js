@@ -12,7 +12,6 @@ const CompanyProfile = () => {
   const fetchCompanies = async (query = "") => {
     setLoading(true);
     try {
-I
       const response = await axios.get(`/api/companies?search=${query}`);
       setCompanies(response.data);
     } catch (error) {
@@ -22,17 +21,14 @@ I
     }
   };
 
-
   const handleSearch = (e) => {
     e.preventDefault();
     fetchCompanies(searchTerm);
   };
 
-
   const handleSubmitReview = async (e) => {
     e.preventDefault();
     try {
-
       await axios.post("/api/reviews", { review });
       setReviews([...reviews, review]); 
       setReview(""); 
@@ -41,16 +37,14 @@ I
     }
   };
 
-
   useEffect(() => {
     fetchCompanies();
   }, []);
 
   return (
     <div className="company-profile">
-      <h1>Welcome to the Jobseeker Website</h1>
+      <h1>Welcome to the Job Marketplace</h1>
       <p>Here you can find and review companies, or search for a company to read more about it.</p>
-
 
       <div className="search-section">
         <h2>Search for Companies</h2>
@@ -64,14 +58,17 @@ I
           <button type="submit">Search</button>
         </form>
         {loading && <p>Loading...</p>}
-        <ul>
-          {companies.map((company, index) => (
-            <li key={index}>{company.name}</li>
-          ))}
-        </ul>
+        {companies.length > 0 ? (
+          <ul>
+            {companies.map((company, index) => (
+              <li key={index}>{company.name}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No companies found</p>
+        )}
       </div>
 
-    
       <div className="review-section">
         <h2>Write a Review</h2>
         <form onSubmit={handleSubmitReview}>
@@ -84,12 +81,16 @@ I
           <button type="submit">Submit Review</button>
         </form>
 
-        <h3>Recent Reviews:</h3>
-        <ul>
-          {reviews.map((rev, index) => (
-            <li key={index}>{rev}</li>
-          ))}
-        </ul>
+        {reviews.length > 0 && (
+          <div>
+            <h3>Recent Reviews:</h3>
+            <ul>
+              {reviews.map((rev, index) => (
+                <li key={index}>{rev}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
